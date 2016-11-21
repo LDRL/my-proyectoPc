@@ -1,0 +1,45 @@
+{% extends 'blog/index.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+		<h3>Listado de Marcas <a href="{% url 'blog.views.Mcreate' %}"><button class="btn btn-success">Nuevo</button></a></h3>
+		<!--@include('almacen.categoria.search') -->
+	</div>
+</div>
+
+<div class="row">
+   <div class=class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+         <div class="table-responsive">
+             <table class="table table-striped table-bordered table-condensed table-hover">
+                 <thead>
+                     <th>Autor</th>
+										 <th>Precio</th>
+										 <th>Descripcion</th>
+										 <th>Categoria</th>
+										 <th>Marca</th>
+										 <th>Imagen</th>
+                 </thead>
+								 {% for computadora in computadoras %}
+								 <tr>
+                 <td>{{ computadora.autor }}</td>
+								 <td>{{ computadora.precio }}</td>
+								 <td>{{ computadora.descripcion }}</td>
+								 <td>{{ computadora.categoria }}</td>
+								 <td>{{ computadora.marca }}</td>
+								 <td>
+										 <img src="{% static '{{ computadora.imagen }}' %}" alt="{{ computadora.imagen}}" height="100px" width"100px" class="img-thumbnail">
+								 </td>
+
+                 <td>
+                 <a href="#"><button class="btn btn-info">Editar</button></a>
+                 <a href="#"><button class="btn btn-danger">Eliminar</button></a>
+                 </td>
+                 </tr>
+								 {% endfor %}
+             </table>
+         </div>
+   </div>
+</div>
+
+{% endblock %}
