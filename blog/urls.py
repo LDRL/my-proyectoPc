@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
         url(r'^$', views.index),
-        url(r'^categoria/$', views.listado),        
+        url(r'^categoria/$', views.listado),
+        url(r'^categoria/nuevo/$', views.Ccreate,),
     ]
