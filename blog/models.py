@@ -23,7 +23,7 @@ class Computadora(models.Model):
     descripcion = models.TextField();
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE,)
     marca = models.ForeignKey(Marca,on_delete=models.CASCADE,)
-    imagen = models.ImageField(null=True, blank=True,upload_to='fotos')
+    imagen = models.ImageField(null=True, blank=True,upload_to='blog/fotos')
     activo = models.BooleanField(default=True, editable=False)
 
     def __str__(self):

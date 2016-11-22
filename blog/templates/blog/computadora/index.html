@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Marcas <a href="{% url 'blog.views.Mcreate' %}"><button class="btn btn-success">Nuevo</button></a></h3>
+		<h3>Listado de Marcas <a href="{% url 'blog.views.Compucreate' %}"><button class="btn btn-success">Nuevo</button></a></h3>
 		<!--@include('almacen.categoria.search') -->
 	</div>
 </div>
@@ -28,10 +28,9 @@
 								 <td>{{ computadora.categoria }}</td>
 								 <td>{{ computadora.marca }}</td>
 								 <td>
-										 <img src="{% static '{{ computadora.imagen }}' %}" alt="{{ computadora.imagen}}" height="100px" width"100px" class="img-thumbnail">
+									 <img src ="{{ computadora.imagen.url }}" height="100px" width"100px" class="img-thumbnail">
 								 </td>
-
-                 <td>
+								 <td>
                  <a href="#"><button class="btn btn-info">Editar</button></a>
                  <a href="#"><button class="btn btn-danger">Eliminar</button></a>
                  </td>

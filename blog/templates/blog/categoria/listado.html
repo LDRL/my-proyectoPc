@@ -18,8 +18,8 @@
                  <tr>
                  <td>{{ post.nombre }}</td>
                  <td>
-                 <a href="#"><button class="btn btn-info">Editar</button></a>
-                 <a href="#"><button class="btn btn-danger">Eliminar</button></a>
+                 <a href="{% url 'blog.views.Cedit' pk=post.pk %}"><button class="btn btn-info">Editar</button></a>
+                 <a href="{% url 'blog.views.Cdelete' pk=post.pk %}"><button class="btn btn-danger">Eliminar</button></a>
                  </td>
                  </tr>
 {% endfor %}
