@@ -29,19 +29,13 @@
             <i class="zmdi zmdi-account-circle zmdi-hc-5x"></i>
             <p>Inicia sesión con tu cuenta</p>
         </div>
-        <form action="">
-            <div class="input-field">
-                <input id="UserName" type="text" class="validate">
-                <label for="UserName"><i class="zmdi zmdi-account"></i>&nbsp; Nombre</label>
-            </div>
-            <div class="input-field col s12">
-                <input id="Password" type="password" class="validate">
-                <label for="Password"><i class="zmdi zmdi-lock"></i>&nbsp; Contraseña</label>
-            </div>
-            <button class="waves-effect waves-teal btn-flat">Ingresar &nbsp; <i class="zmdi zmdi-mail-send"></i></button>
+				<form method="POST" class="post-form">
+				  {% csrf_token %}
+				  {{ form.as_p }}
+            <button class="waves-effect waves-teal btn-flat" type="submit">Ingresar &nbsp; <i class="zmdi zmdi-mail-send"></i></button>
         </form>
         <div class="divider" style="margin: 20px 0;"></div>
-        <a href="home.html">Crear cuenta</a>
+<!--        <a href="home.html">Crear cuenta</a> -->
     </div>
 
 		<script src="{% static 'js/sweetalert.min.js'%}"></script>

@@ -31,8 +31,8 @@
 									 <img src ="{{ computadora.imagen.url }}" height="100px" width"100px" class="img-thumbnail">
 								 </td>
 								 <td>
-                 <a href="#"><button class="btn btn-info">Editar</button></a>
-                 <a href="#"><button class="btn btn-danger">Eliminar</button></a>
+									 <a href="{% url 'blog.views.Compuedit' pk=computadora.pk %}"><button class="btn btn-info">Editar</button></a>
+									 <a href="{% url 'blog.views.Compudelete' pk=computadora.pk %}"><button class="btn btn-danger">Eliminar</button></a>
                  </td>
                  </tr>
 								 {% endfor %}

@@ -58,6 +58,14 @@
                   <small class="bg-red">Autor</small>
                   <span class="hidden-xs">Luis Reyes</span>
                 </a>
+                <li>
+                  <a href="{% url 'blog.views.privado' %}">
+                  <small class="bg-red">Bienvenido</small>
+                  <span class="hidden-xs">{{usuario.username|upper}}</span>
+                  </a>
+                </li>
+                <li><a href="{% url 'blog.views.cerrar' %}" >
+                  <small class="bg-red">Cerrar_Sesion</small>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
@@ -87,7 +95,7 @@
             <li class="header"></li>
 
             <li class="treeview">
-              <a href="#">
+              <a href="{% url 'blog.views.index' %}">
                 <i class="icon-home"></i>
                 <span>Home</span>
                 <i class="fa fa-angle-left pull-right"></i>
@@ -101,8 +109,18 @@
               </a>
             </li>
 
+
             <li class="treeview"> <a href="{% url 'blog.views.Mlistado' %}"> <i class="icon-git"></i> <span>Marca</span></a></li>
             <li class="treeview"> <a href="{% url 'blog.views.Compulistado' %}"> <i class="icon-display"></i> <span>Computadora</span></a></li>
+
+            {% if user.is_authenticated and user.is_staff == True and user.is_superuser == True %}
+            <li class="treeview">
+              <a href="{% url 'blog.views.RegistroUsuario' %}">
+                <i class="icon-list"></i>
+                <span>Usuario</span>
+              </a>
+            </li>
+            {%endif%}
 
           </ul>
         </section>

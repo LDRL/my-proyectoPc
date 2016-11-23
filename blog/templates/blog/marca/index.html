@@ -18,8 +18,8 @@
 								 <tr>
                  <td>{{ marca.nombre }}</td>
                  <td>
-                 <a href="#"><button class="btn btn-info">Editar</button></a>
-                 <a href="#"><button class="btn btn-danger">Eliminar</button></a>
+                 <a href="{% url 'blog.views.Medit' pk=marca.pk %}"><button class="btn btn-info">Editar</button></a>
+                 <a href="{% url 'blog.views.Mdelete' pk=marca.pk %}"><button class="btn btn-danger">Eliminar</button></a>
                  </td>
                  </tr>
 								 {% endfor %}

@@ -1,0 +1,18 @@
+{% extends 'blog/index.html' %}
+{% block content %}
+<form method="POST">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="form-group">
+        {% csrf_token %}
+        <h3>¿Desea elminiar el registro de {{object.nombre}}?</h3>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Eiminar</button>
+        <button class="btn btn-danger" href="{% url 'blog.views.Mlistado'%}" >Cancelar</button>
+      </div>
+    </div>
+  </div>
+{% endblock %}

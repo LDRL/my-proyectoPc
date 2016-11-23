@@ -15,13 +15,17 @@ from django.http import HttpResponse
 def logueo(request):
     return render(request, 'blog/login.html',{})
 
+@login_required(login_url='ingresar')
 def index(request):
-    return render(request, 'blog/index.html', {})
+    usuario = request.user
+    return render(request,'blog/index.html',{'usuario':usuario})
 
+@login_required(login_url='ingresar')
 def listado(request):
     categorias = Categoria.objects.filter()
     return render(request, 'blog/categoria/listado.html',{'categorias':categorias})
 
+@login_required(login_url='ingresar')
 def Ccreate(request):
     if request.method == "POST":
         form = CategoriaForm(request.POST)
@@ -34,6 +38,7 @@ def Ccreate(request):
         form = CategoriaForm()
     return render(request, 'blog/categoria/create.html',{'form': form})
 
+@login_required(login_url='ingresar')
 def Cedit(request, pk):
      categoria = get_object_or_404(Categoria, pk=pk)
      if request.method == "POST":
@@ -46,6 +51,7 @@ def Cedit(request, pk):
          form = CategoriaForm(instance=categoria)
          return render(request, 'blog/categoria/edit.html', {'form': form})
 
+@login_required(login_url='ingresar')
 def Cdelete(request, pk):
      categoria = Categoria.objects.get(pk=pk)
      if request.method == "POST":
@@ -53,10 +59,12 @@ def Cdelete(request, pk):
          return redirect('blog.views.listado')
      return render(request, 'blog/categoria/delete.html', {'categoria': categoria})
 
+@login_required(login_url='ingresar')
 def Mlistado(request):
     marcas = Marca.objects.filter()
     return render(request, 'blog/marca/index.html',{'marcas':marcas})
 
+@login_required(login_url='ingresar')
 def Mcreate(request):
     if request.method == "POST":
         formulario = MarcaForm(request.POST)
@@ -69,10 +77,33 @@ def Mcreate(request):
         formulario = MarcaForm()
     return render(request, 'blog/marca/create.html',{'form': formulario})
 
+@login_required(login_url='ingresar')
+def Medit(request, pk):
+     marca = get_object_or_404(Marca, pk=pk)
+     if request.method == "POST":
+         form = MarcaForm(request.POST, instance=marca)
+         if form.is_valid():
+             marca = form.save(commit=False)
+             marca.save()
+             return redirect('blog.views.Mlistado')
+     else:
+         form = MarcaForm(instance=marca)
+         return render(request, 'blog/marca/create.html', {'form': form})
+
+@login_required(login_url='ingresar')
+def Mdelete(request, pk):
+     marca = Marca.objects.get(pk=pk)
+     if request.method == "POST":
+         marca.delete()
+         return redirect('blog.views.Mlistado')
+     return render(request, 'blog/marca/delete.html', {'marca': marca})
+
+@login_required(login_url='ingresar')
 def Compulistado(request):
     computadoras = Computadora.objects.filter()
     return render(request, 'blog/computadora/index.html',{'computadoras':computadoras})
 
+@login_required(login_url='ingresar')
 def Compucreate(request):
     if request.method == "POST":
         formulario = CompuForm(request.POST,request.FILES)
@@ -85,9 +116,32 @@ def Compucreate(request):
         formulario = CompuForm()
     return render(request, 'blog/computadora/create.html',{'form': formulario})
 
+@login_required(login_url='ingresar')
+def Compuedit(request, pk):
+     computadora = get_object_or_404(Computadora, pk=pk)
+     if request.method == "POST":
+         form = CompuForm(request.POST, instance=computadora)
+         if form.is_valid():
+             computadora = form.save(commit=False)
+             computadora.save()
+             return redirect('blog.views.Compulistado')
+     else:
+         form = CompuForm(instance=computadora)
+         return render(request, 'blog/computadora/create.html', {'form': form})
+
+@login_required(login_url='ingresar')
+def Compudelete(request, pk):
+     computadora = Computadora.objects.get(pk=pk)
+     if request.method == "POST":
+         computadora.delete()
+         return redirect('blog.views.Compulistado')
+     return render(request, 'blog/computadora/delete.html', {'computadora': computadora})
+
 ###login
 ##
 #
+
+@login_required(login_url='ingresar')
 def RegistroUsuario(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -110,14 +164,14 @@ def ingresar(request):
             if user is not None:
                 if user.is_active:
                     login(request,user)
-                    return redirect('blog.views.privado')
+                    return redirect('blog.views.index')
                 else:
                     return render(request,'blog/usuario/noactivo.html',{})
             else:
                 return render(request,'blog/usuario/nousuario.html',{})
     else:
         form = AuthenticationForm()
-    return render(request, 'blog/usuario/ingresar.html', {'form': form})
+    return render(request, 'blog/login.html', {'form': form})
 
 @login_required(login_url='ingresar')
 def privado(request):
@@ -127,9 +181,4 @@ def privado(request):
 @login_required(login_url='ingresar')
 def cerrar(request):
     logout(request)
-    return render(request,'blog/login.html', {})
-
-
-#def index(request):
-#    return render(request, 'blog/index.html'.{})
-# Create your views here.
+    return redirect('blog.views.ingresar')
